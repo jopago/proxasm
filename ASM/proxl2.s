@@ -5,7 +5,7 @@ global asm_proxl2square
 asm_proxl2square:
 	; modifies array in-place
 	; copy of original array is done in C
-	; prox of ||.||_2^2 is simply 
+	; prox of 0.5*lambda*||.||_2^2 is simply 
 	; scalar multiplication by 1/(1+lambda) 
 
 
