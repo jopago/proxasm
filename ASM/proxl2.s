@@ -11,7 +11,6 @@ asm_proxl2square:
 
 	xor rax,rax
 	xorpd xmm2,xmm2
-	shr rsi,1 
 
 	push rcx ; save rcx
 	mov ecx,1
@@ -31,10 +30,10 @@ asm_proxl2square:
 		movapd [rdi],xmm1 ; in-place modification
 
 		add rdi, 16
-		inc rax
+		add rax,2
 
 		cmp rax, rsi
-		jne _loop
+		jl _loop
 
 	pop rcx 
 
