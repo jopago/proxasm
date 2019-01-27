@@ -1,3 +1,6 @@
+; not done yet 
+; 
+
 global asm_proxl1
 
 section .text:
