@@ -5,7 +5,6 @@ section .text:
 asm_proxl1:
 	xor rax,rax
 	xorpd xmm2,xmm2
-	shr rsi,1
 
 	push rcx
 
@@ -26,10 +25,10 @@ asm_proxl1:
 		movapd [rdi],xmm1
 
 		add rdi,16
-		inc rax
+		add rax, 2
 
 		cmp rax,rsi
-		jne _loop
+		jl _loop
 
 	pop rcx
 
