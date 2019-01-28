@@ -40,21 +40,19 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 	double *t = rand_array(N);
 	double ans;
 
-	// C benchmark 
+	// C  
 
 	begin = clock();
-
 	ans = f_c(t,N);
-
 	end = clock();
 
 	printf("\n----\t%s benchmark \t----\n", name);
 	printf("----\tC: %fs \t (output: %f)\n", elapsed(begin,end),ans);
 
+	// ASM
+	
 	begin = clock();
-
 	ans = f_asm(t,N);
-
 	end = clock(); 
 
 	printf("----\tASM: %fs \t (output: %f)\n\n", elapsed(begin, end), ans);
@@ -65,11 +63,12 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 int main()
 {
 	clock_t begin,end;
-	int N = 6000011;
+	int N;
 	int i;
 	double *t;
 	double sum;
-
+	
+	N = 6000011;
 	srand(time(0));
 
 	benchmark_vec(c_sum, asm_sum, "SUM", N);
