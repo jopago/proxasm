@@ -16,6 +16,9 @@ If the function is convex, the proximal operator is well-defined. Some numerical
 # References 
 
 [1] : https://arxiv.org/abs/0912.3522 
+
 [2] : https://web.stanford.edu/~boyd/papers/pdf/prox_algs.pdf
+
 [3] : http://softpixel.com/~cwright/programming/simd/sse.php (SSE instruction set) 
+
 [4] : http://proximity-operator.net/ (implementation in Matlab and Python)
