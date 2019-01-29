@@ -4,15 +4,15 @@
 #include <c_funcs.h>
 
 
-extern double 	asm_norm2(double*,const int);
-extern double 	asm_sum(double*,const int);
-extern void 	asm_normalize(double*,int); 
+extern double 	asm_norm2(const double*,const int);
+extern double 	asm_sum(const double*,const int);
+extern void 	asm_normalize(double*,const int); 
 
 extern double 	asm_proxl2square(double*,int,double);
 extern double 	asm_proxl1(double*,int,double);
 
 
-typedef double (*func_vec)(double*,int);
+typedef double (*func_vec)(double*,const int);
 typedef double (*func_prox)(double*,int,double);
 
 
