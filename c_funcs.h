@@ -3,6 +3,8 @@
 
 #include <math.h>
 
+#define max(a,b) (a < b) ? b : a
+
 double c_sum(double *t, int N)
 {
 	int i;
@@ -38,6 +40,19 @@ double c_normalize(double *t, int N)
 	}
 
 	return norm2;
+}
+
+double c_norm1(double *t, int N)
+{
+	int i;
+	double norm1=0.f;
+
+	for(i=0;i<N;i++)
+	{
+		norm1 += max(t[i],-t[i]);
+	}
+
+	return norm1;
 }
 
 #endif 
