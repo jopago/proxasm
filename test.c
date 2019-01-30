@@ -5,6 +5,7 @@
 
 
 extern double 	asm_norm2(const double*,const int);
+extern double 	asm_norm1(const double*,const int);
 extern double 	asm_sum(const double*,const int);
 extern void 	asm_normalize(double*,const int); 
 
@@ -32,6 +33,16 @@ double *rand_array(int N)
 	}
 
 	return t;
+}
+
+void disp(double* t, int N)
+{
+	int i;
+	for(i=0;i<N;i++) 
+	{
+		printf("%f ", t[i]);
+	}
+	printf("\n");
 }
 
 void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
@@ -74,6 +85,7 @@ int main()
 	benchmark_vec(c_sum, asm_sum, "SUM", N);
 	benchmark_vec(c_norm2, asm_norm2, "NORM2",N);
 	benchmark_vec(c_normalize, asm_normalize,"NORMALIZE",N);
+	benchmark_vec(c_norm1, asm_norm1, "NORM1",N);
 
 	return 0;
 }
