@@ -64,7 +64,6 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 }
 
 
-
 int main()
 {
 	clock_t begin,end;

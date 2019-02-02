@@ -1,5 +1,6 @@
 global sse_norm2, sse_norm1
 global sse_sum, sse_abs
+global sse_test
 
 section .text:
 
@@ -85,3 +86,15 @@ sse_norm1:
 	haddpd xmm0,xmm0
 
 	ret
+
+sse_test: 
+	mov ecx,1
+	cvtsi2sd xmm2,ecx
+
+	comisd xmm0,xmm2
+	jb _end
+
+	movapd xmm0,xmm2
+
+	_end:
+		ret
