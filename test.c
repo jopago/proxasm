@@ -1,16 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 #include <c_funcs.h>
-
-
-extern double 	asm_norm2(const double*,const int);
-extern double 	asm_norm1(const double*,const int);
-extern double 	asm_sum(const double*,const int);
-extern void 	asm_normalize(double*,const int); 
-
-extern double 	asm_proxl2square(double*,int,double);
-extern double 	asm_proxl1(double*,int,double);
+#include <prox_norms.h>
+#include <sse.h>
 
 
 typedef double (*func_vec)(double*,const int);
@@ -82,10 +76,10 @@ int main()
 	N = 6000011;
 	srand(time(0));
 
-	benchmark_vec(c_sum, asm_sum, "SUM", N);
-	benchmark_vec(c_norm2, asm_norm2, "NORM2",N);
-	benchmark_vec(c_normalize, asm_normalize,"NORMALIZE",N);
-	benchmark_vec(c_norm1, asm_norm1, "NORM1",N);
+	benchmark_vec(c_sum, sse_sum, "SUM", N);
+	benchmark_vec(c_norm2, sse_norm2, "NORM2",N);
+	benchmark_vec(c_normalize, sse_normalize,"NORMALIZE",N);
+	benchmark_vec(c_norm1, sse_norm1, "NORM1",N);
 
 	return 0;
 }
