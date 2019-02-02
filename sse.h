@@ -10,7 +10,8 @@ extern void 	sse_abs(double*,const int);
 extern void 	sse_normalize(double*,const int); 
 extern void 	sse_projl2(double*,const int,double);
 
-extern double 	sse_proxl2square(double*,int,double);
-extern double 	sse_proxl1(double*,int,double);
+extern void 	sse_proxl2(double*,const int,double);
+extern void 	sse_proxl2square(double*,int,double);
+extern void 	sse_proxl1(double*,int,double);
 
 #endif 

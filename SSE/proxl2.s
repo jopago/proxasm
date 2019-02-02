@@ -1,6 +1,8 @@
 section .text:
 
-global sse_proxl2square
+global sse_proxl2square, sse_proxl2
+
+extern sse_norm2
 
 sse_proxl2square:
 	; modifies array in-place
@@ -39,4 +41,36 @@ sse_proxl2square:
 
 	ret 
 
+sse_proxl2:
+	movapd xmm3, xmm0 ; save lambda as xmm3
 
+	push rdi 
+	call sse_norm2 
+	pop rdi 
+
+	; compute (1 - lambda / (max(||x||,lambda))) 
+
+	maxsd xmm0,xmm3  ; xmm0 = max(||x||, lambda)
+	divsd xmm3,xmm0  ; xmm3 = lambda / xmm0 
+
+	push rcx
+	mov ecx, 1
+	cvtsi2sd xmm2,ecx
+	subsd xmm2, xmm3 
+	movlhps xmm2,xmm2 ; xmm2 = constant to multiply x with 
+
+	pop rcx 
+
+	xor rax,rax
+	_proxl2:
+		movapd xmm0,[rdi]
+		mulpd xmm0,xmm2
+		movapd [rdi],xmm0 
+
+		add rdi,16
+		add rax,2
+
+		cmp rax,rsi
+		jl _proxl2
+
+	ret 

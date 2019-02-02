@@ -8,7 +8,7 @@
 
 
 typedef double (*func_vec)(double*,const int);
-typedef double (*func_prox)(double*,int,double);
+typedef void (*func_prox)(double*,int,double);
 
 
 double elapsed(clock_t begin, clock_t end)
@@ -66,12 +66,7 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 
 int main()
 {
-	clock_t begin,end;
 	int N;
-	int i;
-	double *t;
-	double sum;
-	
 	N = 6000011;
 	srand(time(0));
 
@@ -79,6 +74,7 @@ int main()
 	benchmark_vec(c_norm2, sse_norm2, "NORM2",N);
 	benchmark_vec(c_normalize, sse_normalize,"NORMALIZE",N);
 	benchmark_vec(c_norm1, sse_norm1, "NORM1",N);
+
 
 	return 0;
 }
