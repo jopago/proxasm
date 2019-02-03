@@ -5,7 +5,7 @@ avx_sum:
 	vxorpd ymm2,ymm2 
 
 	_avx_sum:
-		vaddpd ymm2, [rdi] ; sum 4 by 4 double
+		vaddpd ymm2, [rdi] ; sum 4 double at a time
 
 		add rdi, 32
 		add rax, 4
