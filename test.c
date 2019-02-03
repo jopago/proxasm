@@ -63,18 +63,20 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 	printf("----\tASM: %fs \t (output: %f)\n\n", elapsed(begin, end), ans);
 }
 
+extern double avx_sum(double*,int);
 
 int main()
 {
 	int N;
-	N = 6000011;
+	N = 11000000;
+	// double *t = rand_array(N);
 	srand(time(0));
 
 	benchmark_vec(c_sum, sse_sum, "SUM", N);
 	benchmark_vec(c_norm2, sse_norm2, "NORM2",N);
 	benchmark_vec(c_normalize, sse_normalize,"NORMALIZE",N);
 	benchmark_vec(c_norm1, sse_norm1, "NORM1",N);
-
+	benchmark_vec(c_sum, avx_sum, "SUMAVX", N);
 
 	return 0;
 }

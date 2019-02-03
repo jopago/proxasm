@@ -7,6 +7,7 @@ extern sse_norm2
 sse_proxl2square:
 	; modifies array in-place
 	; copy of original array is done in C
+
 	; prox of 0.5*lambda*||.||_2^2 is simply 
 	; scalar multiplication by 1/(1+lambda) 
 
@@ -42,6 +43,9 @@ sse_proxl2square:
 	ret 
 
 sse_proxl2:
+	; proximal operator of the euclidean norm 
+	; prox_{lambda ||.||_2}(x) = (1 - lambda/max(||x||,lambda)) * x
+
 	movapd xmm3, xmm0 ; save lambda as xmm3
 
 	push rdi 

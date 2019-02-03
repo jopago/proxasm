@@ -11,9 +11,8 @@ sse_sum:
 	xor rax,rax ; counter 
 
 	_sum:		
-		addpd xmm0,[rdi] 	; adds 2 double at once in xmm0 
-					; the top and bottom part of xmm0 contain each approx. half of the sum
-
+		addpd xmm0,[rdi] 	; reads 2 by 2 double
+						
 		add rdi,16
 		add rax,2 
 		
@@ -30,13 +29,13 @@ sse_norm2:
 
 	_sum_square:
 
-		movapd xmm1, [rdi]  ; reads 2 doubles 
+		movapd xmm1, [rdi]  
 		
-		mulpd xmm1,xmm1  ; square them 
+		mulpd xmm1,xmm1  
 		addpd xmm0,xmm1
 
-		add rdi,16 ; move to next 2 doubles 
-		add rax,2 ; increase counter by 2
+		add rdi,16
+		add rax,2 
 
 		cmp rax,rsi
 		jl _sum_square 
