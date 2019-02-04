@@ -12,7 +12,7 @@ If the function is convex, the proximal operator is well-defined. Some numerical
 
 # SSE/AVX instruction set 
 
-The SSE instruction family adds SIMD operations: a register can contain a vector of data and the operation is applied to each element in parallel. With 128-bits SSE registers, one can store 4 floats or 2 doubles. The AVX extension adds 256-bits registers that include the SSE "xmm" registers, just as the rax 64-bit register is an extension of the 32-bits eax. 
+The SSE instruction family adds SIMD operations: a register can contain a vector of data and the operation is applied to each element in parallel. With 128-bits SSE registers, one can store 4 floats or 2 doubles. The AVX extension adds 256-bits registers that extend the SSE "xmm" registers, just as the rax 64-bit register is an extension of the 32-bits eax. 
 
 # References 
 
