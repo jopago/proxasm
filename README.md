@@ -1,6 +1,6 @@
 # proxasm
 
-A C/x86 assembly implementation of some proximal operators with SSE ([3]) and AVX ([5]) SIMD instructions, you can compile it using the Makefile. (with NASM and GCC). 
+A C/x86 assembly implementation of some proximal operators with SSE ([3]) and AVX ([5]) SIMD instructions, you can compile it using the Makefile (with NASM and GCC) : ''' make all '''.
 
 # Proximal operators 
 
