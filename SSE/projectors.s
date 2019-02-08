@@ -1,5 +1,6 @@
 global sse_projl2
 global sse_normalize 
+global sse_projlinf
 
 extern sse_norm2
 
@@ -80,3 +81,24 @@ sse_projl2:
 	_done:
 		ret 
 
+sse_projlinf:
+	; project x unto [-l,l]^n 
+	
+	xor rax,rax
+	xorpd xmm2,xmm2 
+	movlhps xmm0,xmm0
+	subpd xmm2,xmm0 
+	
+	_sse_projlinf:
+		movapd xmm1,[rdi]
+		minpd xmm1,xmm0
+		maxpd xmm1,xmm2
+		movapd [rdi],xmm1
+
+		add rdi,16
+		add rax,2
+
+		cmp rax,rsi
+		jl _sse_projlinf
+
+	ret 
