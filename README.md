@@ -1,6 +1,6 @@
 # proxasm
 
-A C/x86 assembly implementation of some proximal operators with SSE ([3]) SIMD instructions, you can compile it using the Makefile. (with NASM and GCC). 
+A C/x86 assembly implementation of some proximal operators with SSE ([3]) and AVX ([5]) SIMD instructions, you can compile it using the Makefile (with NASM and GCC) : ` make all `. 
 
 # Proximal operators 
 
@@ -10,8 +10,9 @@ A lot of convex optimization problems such as Basis Pursuit, Lasso or Quadratic 
 
 If the function is convex, the proximal operator is well-defined. Some numerical optimization algorithms like ADMM and proximal gradient methods make extensive use of these operators, they can solve regularized statistical problems like Lasso or Ridge regression and other machine learning methods like SVR. 
 
+# SSE/AVX instruction set 
 
-
+The SSE instruction family adds SIMD operations: a register can contain a vector of data and the operation is applied to each element in parallel. With 128-bits SSE registers, one can store 4 floats or 2 doubles. The AVX extension adds 256-bits registers that extend the SSE "xmm" registers, just as the rax 64-bit register is an extension of the 32-bits eax. 
 
 # References 
 
@@ -22,3 +23,5 @@ If the function is convex, the proximal operator is well-defined. Some numerical
 [3] : http://softpixel.com/~cwright/programming/simd/sse.php (SSE instruction set) 
 
 [4] : http://proximity-operator.net/ (implementation in Matlab and Python)
+
+[5] : https://www.cs.utexas.edu/~hunt/class/2016-spring/cs350c/documents/Intel-x86-Docs/64-ia-32-architectures-instruction-set-extensions-reference-manual.pdf
