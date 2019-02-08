@@ -64,6 +64,7 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 }
 
 extern double avx_sum(double*,int);
+extern double avx_norm2(double*,int);
 
 int main()
 {
@@ -77,6 +78,8 @@ int main()
 	benchmark_vec(c_normalize, sse_normalize,"NORMALIZE",N);
 	benchmark_vec(c_norm1, sse_norm1, "NORM1",N);
 	benchmark_vec(c_sum, avx_sum, "SUMAVX", N);
+	benchmark_vec(c_norm2,avx_norm2,"AVXNORM2",N);
+
 
 	return 0;
 }
