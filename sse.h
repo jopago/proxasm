@@ -14,5 +14,6 @@ extern void 	sse_projlinf(double*,int,double);
 extern void 	sse_proxl2(double*,const int,double);
 extern void 	sse_proxl2square(double*,int,double);
 extern void 	sse_proxl1(double*,int,double);
+extern void 	sse_vapnik(double*,int,double,double);
 
 #endif 

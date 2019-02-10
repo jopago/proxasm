@@ -15,15 +15,15 @@ sse_vapnik:
     ;       projl2(x,epsilon) if ||x|| <= epsilon+lambda
     ;       proxl2(x,lambda) otherwise
 
-	movapd xmm3,xmm0 ; epsilon 
-	movapd xmm4,xmm1 ; lambda 
+    movapd xmm3,xmm0 ; epsilon 
+    movapd xmm4,xmm1 ; lambda 
 
-	push rdi 
-	call sse_norm2
-	pop rdi
+    push rdi 
+    call sse_norm2
+    pop rdi
 
-	comisd xmm0,xmm3 
-	jbe _sse_vapnik_identity 
+    comisd xmm0,xmm3 
+    jbe _sse_vapnik_identity 
 
     subsd xmm0,xmm3 
     comisd xmm0,xmm4 ; ||x||-epsilon <= lambda ?
@@ -33,8 +33,8 @@ sse_vapnik:
     call sse_proxl2
     ret 
 
-	_sse_vapnik_identity:
-		ret 
+    _sse_vapnik_identity:
+        ret 
 
     _sse_vapnik_projl2:
         movapd xmm0, xmm3 
