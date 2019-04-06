@@ -6,10 +6,8 @@
 #include <prox_norms.h>
 #include <sse.h>
 
-
 typedef double (*func_vec)(double*,const int);
 typedef void (*func_prox)(double*,int,double);
-
 
 double elapsed(clock_t begin, clock_t end)
 {
@@ -32,7 +30,7 @@ double *rand_array(int N)
 void disp(double* t, int N)
 {
 	int i;
-	for(i=0;i<N;i++) 
+	for(i=0;i<N;i++)
 	{
 		printf("%f ", t[i]);
 	}
@@ -41,11 +39,11 @@ void disp(double* t, int N)
 
 void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 {
-	clock_t begin, end; 
+	clock_t begin, end;
 	double *t = rand_array(N);
 	double ans;
 
-	// C  
+	// C
 
 	begin = clock();
 	ans = f_c(t,N);
@@ -55,10 +53,10 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 	printf("----\tC: %fs \t (output: %f)\n", elapsed(begin,end),ans);
 
 	// ASM
-	
+
 	begin = clock();
 	ans = f_asm(t,N);
-	end = clock(); 
+	end = clock();
 
 	printf("----\tASM: %fs \t (output: %f)\n\n", elapsed(begin, end), ans);
 }
@@ -79,7 +77,6 @@ int main()
 	benchmark_vec(c_norm1, sse_norm1, "NORM1",N);
 	benchmark_vec(c_sum, avx_sum, "SUMAVX", N);
 	benchmark_vec(c_norm2,avx_norm2,"AVXNORM2",N);
-
 
 	return 0;
 }
