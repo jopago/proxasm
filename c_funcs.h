@@ -55,4 +55,43 @@ double c_norm1(double *t, int N)
 	return norm1;
 }
 
+void c_proxl1(double *t, int N, double lambda)
+{
+	int i;
+
+	for(i=0;i<N;i++)
+	{
+		if(t[i] >= 0)
+		{
+			t[i] = fmax(0.0, t[i]-lambda);
+		} else {
+			t[i] = -fmax(0.0, -t[i]-lambda);
+		}
+	}
+}
+
+void c_proxl2(double *t, int N, double lambda)
+{
+	int i;
+
+	for(i=0; i<N;i++)
+	{
+		t[i] = t[i] / (1.0 + lambda);
+	}
+}
+
+int array_equality(double *x, double *y, int N)
+{
+	int i;
+	for(i=0;i<N;i++)
+	{
+		if(fabs(x[i]-y[i]) > 1e-5)
+		{
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
 #endif 
