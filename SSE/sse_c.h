@@ -3,7 +3,7 @@
 
 #include <x86intrin.h>
 
-static inline __m128d sign_pd(__m128d x)
+inline __m128d sign_pd(__m128d x)
 {
     __m128d zero = _mm_setzero_pd();
 
@@ -13,7 +13,7 @@ static inline __m128d sign_pd(__m128d x)
     return _mm_or_pd(positive, negative);
 }
 
-static inline __m128d abs_pd(__m128d x)
+inline __m128d abs_pd(__m128d x)
 {
 	__m128d zero = _mm_setzero_pd(); 
 	__m128d y; 

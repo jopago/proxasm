@@ -47,24 +47,25 @@ void benchmark_vec(func_vec f_c, func_vec f_asm, char name[64], int N)
 {
 	clock_t begin, end;
 	double *t = rand_array(N);
-	double ans;
+	double ans_c, ans_asm;
 
 	// C
 
 	begin = clock();
-	ans = f_c(t,N);
+	ans_c = f_c(t,N);
 	end = clock();
 
 	printf("\n----\t%s benchmark \t----\n", name);
-	printf("----\tC: %fs \t (output: %f)\n", elapsed(begin,end),ans);
+	printf("----\tC: %fs \t (output: %f)\n", elapsed(begin,end),ans_c);
 
 	// ASM
 
 	begin = clock();
-	ans = f_asm(t,N);
+	ans_asm = f_asm(t,N);
 	end = clock();
+	printf("----\tASM: %fs \t (output: %f)\n\n", elapsed(begin, end), ans_asm);
 
-	printf("----\tASM: %fs \t (output: %f)\n\n", elapsed(begin, end), ans);
+	// assert(fabs(ans_c - ans_asm) < 1e-6);
 }
 
 void benchmark_prox(func_prox f_c, func_prox f_asm, char name[64], int N,
@@ -111,14 +112,15 @@ int main()
 	N = 10000000;
 	//srand(time(0));
 
-	benchmark_vec(c_sum, sse_sum, "SUM", N);
-	benchmark_vec(c_norm2, sse_norm2, "NORM2",N);
-	benchmark_vec(c_normalize, sse_normalize,"NORMALIZE",N);
-	benchmark_vec(c_norm1, sse_norm1, "NORM1",N);
-	//benchmark_vec(c_sum, avx_sum, "SUMAVX", N);
-	//benchmark_vec(c_norm2,avx_norm2,"AVXNORM2",N);
-	benchmark_prox(c_proxl1, avx_proxl1, "AVX PROXL1",N,ALIGN_AVX);
+	benchmark_vec(c_sum, sse_sum, "SSE SUM", N);
+	benchmark_vec(c_norm2, sse_norm2, "SSE NORM2",N);
+	benchmark_vec(c_normalize, sse_normalize,"SSE NORMALIZE",N);
+	benchmark_vec(c_norm1, sse_norm1, "SSE NORM1",N);
 	benchmark_prox(c_proxl1, sse_intrin_proxl1, "SSE PROXL1",N,ALIGN_SSE);
+
+	benchmark_vec(c_sum, avx_sum, "AVX SUM", N);
+	benchmark_vec(c_norm2, avx_norm2, "AVX NORM2", N);
+	benchmark_prox(c_proxl1, avx_proxl1, "AVX PROXL1",N,ALIGN_AVX);
 	benchmark_prox(c_proxl2, avx_proxl2, "AVX PROXL2", N, ALIGN_AVX); 
 
 	return 0;

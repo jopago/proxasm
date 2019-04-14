@@ -3,7 +3,7 @@
 
 #include <x86intrin.h>
 
-static __m256d avx_sign_pd(__m256d x)
+inline __m256d avx_sign_pd(__m256d x)
 {
     __m256d zero = _mm256_setzero_pd();
 
@@ -13,7 +13,7 @@ static __m256d avx_sign_pd(__m256d x)
     return _mm256_or_pd(positive, negative);
 }
 
-static __m256d avx_abs_pd(__m256d x)
+inline __m256d avx_abs_pd(__m256d x)
 {
 	__m256d zero = _mm256_setzero_pd(); 
 	__m256d y; 
@@ -56,6 +56,46 @@ void avx_proxl2(double *t, int N, double lambda)
 		x = _mm256_mul_pd(x, multiplier);
 		_mm256_store_pd(t+i, x);
 	}
+}
+
+inline double avx_hsum_pd(__m256d v) {
+	// Fastest way according to 
+	// https://stackoverflow.com/questions/49941645/get-sum-of-values-stored-in-m256d-with-sse-avx
+    __m128d vlow  = _mm256_castpd256_pd128(v);
+    __m128d vhigh = _mm256_extractf128_pd(v, 1); 
+            vlow  = _mm_add_pd(vlow, vhigh);
+
+    __m128d high64 = _mm_unpackhi_pd(vlow, vlow);
+    return  _mm_cvtsd_f64(_mm_add_sd(vlow, high64));
+}
+
+double avx_sum(double *t, int N)
+{
+	__m256d sum = _mm256_set1_pd(0.0); 
+	int i;
+
+	for(i=0;i<N;i+=4)
+	{
+		__m256d x = _mm256_set_pd(t[i+3], t[i+2], t[i+1], t[i]);
+		sum = _mm256_add_pd(sum, x);
+	}
+
+	return avx_hsum_pd(sum); 
+}
+
+double avx_norm2(double *t, int N)
+{
+	__m256d sum = _mm256_set1_pd(0.0); 
+	int i;
+
+	for(i=0;i<N;i+=4)
+	{
+		__m256d x = _mm256_set_pd(t[i+3], t[i+2], t[i+1], t[i]);
+		x = _mm256_mul_pd(x,x); 
+		sum = _mm256_add_pd(sum, x);
+	}
+
+	return sqrt(avx_hsum_pd(sum)); 
 }
 
 #endif 
