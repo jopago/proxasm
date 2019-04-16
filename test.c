@@ -73,7 +73,7 @@ void benchmark_prox(func_prox f_c, func_prox f_asm, char name[64], int N,
 {
 	clock_t begin, end;
 	double *t = rand_array(N);
-	double *ans_c, *ans_asm; 
+	double *ans_c, *ans_asm;
 
 	ans_c 	= (double*) malloc(N*sizeof(double));
 	ans_asm = (double*) _mm_malloc(N*sizeof(double),align);
@@ -81,7 +81,7 @@ void benchmark_prox(func_prox f_c, func_prox f_asm, char name[64], int N,
 	if(!ans_c || !ans_asm) exit(EXIT_FAILURE);
 
 	memcpy(ans_c, t, N*sizeof(double));
-	memcpy(ans_asm, t, N*sizeof(double)); 
+	memcpy(ans_asm, t, N*sizeof(double));
 
 	// C
 
@@ -121,7 +121,8 @@ int main()
 	benchmark_vec(c_sum, avx_sum, "AVX SUM", N);
 	benchmark_vec(c_norm2, avx_norm2, "AVX NORM2", N);
 	benchmark_prox(c_proxl1, avx_proxl1, "AVX PROXL1",N,ALIGN_AVX);
-	benchmark_prox(c_proxl2, avx_proxl2, "AVX PROXL2", N, ALIGN_AVX); 
+	benchmark_prox(c_proxl2square, avx_proxl2square, "AVX PROXL2", N, ALIGN_AVX);
+	benchmark_prox(c_projBox, avx_projBox, "AVX PROJBOX", N, ALIGN_AVX);
 
 	return 0;
 }

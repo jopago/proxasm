@@ -1,5 +1,5 @@
 #ifndef __C_FUNCS
-#define __C_FUNCS 
+#define __C_FUNCS
 
 #include <math.h>
 
@@ -34,7 +34,7 @@ double c_normalize(double *t, int N)
 	int i;
 	double norm2 = c_norm2(t,N);
 
-	for(i=0;i<N;i++) 
+	for(i=0;i<N;i++)
 	{
 		t[i] /= norm2;
 	}
@@ -70,7 +70,23 @@ void c_proxl1(double *t, int N, double lambda)
 	}
 }
 
-void c_proxl2(double *t, int N, double lambda)
+void c_projLinf(double *t, int N, double min, double max)
+{
+	int i;
+
+	for(i=0;i<N;i++)
+	{
+		if(t[i] > max) t[i] = max;
+		if(t[i] < min) t[i] = min;
+	}
+}
+
+void c_projBox(double *t, int N, double r)
+{
+	c_projLinf(t, N, -r, r);
+}
+
+void c_proxl2square(double *t, int N, double lambda)
 {
 	int i;
 
@@ -94,4 +110,4 @@ int array_equality(double *x, double *y, int N)
 	return 1;
 }
 
-#endif 
+#endif
